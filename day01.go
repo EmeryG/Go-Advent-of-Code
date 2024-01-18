@@ -91,7 +91,7 @@ func getCalibration(calibrationDoc string) int {
 }
 
 func main() {
-	calibrationDoc := getFileContents("dayone.txt")
+	calibrationDoc := getFileContents("day01.txt")
 	calibrationNum := getCalibration(calibrationDoc)
 
 	fmt.Println("Calibration Number:", calibrationNum)
