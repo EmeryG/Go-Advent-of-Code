@@ -61,6 +61,7 @@ func getGameValueMax(gameNum int, game string) int {
 		}
 	}
 
+	// Return game number as value
 	if maxGreen <= 13 && maxRed <= 12 && maxBlue <= 14 {
 		return gameNum + 1
 	} else {
@@ -88,6 +89,7 @@ func getGameValueMin(gameNum int, game string) int {
 		}
 	}
 
+	// Return multiplication of 3 maxes together to get game value
 	return maxGreen * maxRed * maxBlue
 }
 
