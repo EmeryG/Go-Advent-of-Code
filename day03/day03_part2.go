@@ -22,7 +22,7 @@ func isOverlapRange(rangeA []int, rangeB []int) bool {
 	return rangeA[0] <= rangeB[1] && rangeA[1] >= rangeB[0]
 }
 
-func getGearRatio(parsedSchematic []string, rowIndex int, asteriskIndex []int) []int {
+func getConnectedGears(parsedSchematic []string, rowIndex int, asteriskIndex []int) []int {
 	// Logic for which rows need to be checked
 	rowRange := [2]int{rowIndex - 1, rowIndex + 2}
 
@@ -38,8 +38,10 @@ func getGearRatio(parsedSchematic []string, rowIndex int, asteriskIndex []int) [
 	var gears []int
 
 	for _, schematicLine := range parsedSchematic[rowRange[0]:rowRange[1]] {
+		// Find all numbers in schematicLine
 		numberIndices := regexNum.FindAllStringIndex(schematicLine, -1)
 
+		// Iterate through each number and find if it overlaps with the asterisk range
 		for _, numberIndex := range numberIndices {
 			if isOverlapRange(asteriskIndex, numberIndex) {
 				gearNum, _ := strconv.Atoi(schematicLine[numberIndex[0]:numberIndex[1]])
@@ -65,9 +67,11 @@ func getGearRatioSum(engineSchematic string) int {
 		// Returns 2D slice of the range of each number
 		asteriskIndices := regexRatio.FindAllStringIndex(schematicRow, -1)
 
-		for _, index := range asteriskIndices {
-			gears := getGearRatio(parsedSchematic, rowIndex, index)
+		for _, asteriskIndex := range asteriskIndices {
+			// Get gears connected to asterisks
+			gears := getConnectedGears(parsedSchematic, rowIndex, asteriskIndex)
 
+			// If 2 gears matched to asterisk, add to gear ratio sum
 			if len(gears) >= 2 {
 				gearRatioSum += gears[0] * gears[1]
 			}
