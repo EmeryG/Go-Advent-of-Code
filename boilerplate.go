@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 )
 
@@ -15,5 +16,6 @@ func getFileContents(filename string) string {
 }
 
 func main() {
+	fmt.Println("test")
 	// Put code here
 }
